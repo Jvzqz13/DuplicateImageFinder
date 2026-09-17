@@ -3,7 +3,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DuplicateFinder {
@@ -95,5 +97,36 @@ public class DuplicateFinder {
         // PRINTS HOW MANY IMAGE FINGERPRINTS WERE CREATED
         System.out.println(fingerprints.size());
 
+        //LOOPS THROUGH THE ENTRIES - KEYS/VALUES USING MAP <<EXPERIMENT>>
+//        for(Map.Entry<File, String> outerEntry : fingerprints.entrySet()){
+//           for(Map.Entry<File, String> innerEntry: fingerprints.entrySet()){
+//               System.out.println(
+//                       outerEntry.getKey().getName() + " vs " + innerEntry.getKey().getName()
+//               );
+//           }
+//       }
+
+        //LOOPS THROUGH THE ENTRIES - KEYS/VALUES
+        List<Map.Entry<File, String>> entries = new ArrayList<>(fingerprints.entrySet());
+        for(int i = 0; i < entries.size(); i++){
+            for(int j = i + 1; j < entries.size(); j++){
+                String fingerPrint1 = entries.get(i).getValue();
+                String fingerPrint2 = entries.get(j).getValue();
+
+                if (fingerPrint1.equals(fingerPrint2)){
+                    System.out.println(entries.get(i).getKey().getName() + " vs " + entries.get(j).getKey().getName() + ": MATCHES");
+                } else {
+                    System.out.println(entries.get(i).getKey().getName() + " vs " + entries.get(j).getKey().getName() + ": no match");
+                }
+
+            }
+
+        }
+
+
+
+
+
+     // / / / / / / / / / / / / / / END / / / / / / / / / / / / / / / / / / / / / / / / / / / /
     }
 }
