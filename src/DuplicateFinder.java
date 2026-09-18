@@ -106,18 +106,26 @@ public class DuplicateFinder {
 //           }
 //       }
 
-        //LOOPS THROUGH THE ENTRIES - KEYS/VALUES
+        //LOOPS THROUGH THE ENTRIES USING ARRAYS - KEYS/VALUES
         List<Map.Entry<File, String>> entries = new ArrayList<>(fingerprints.entrySet());
         for(int i = 0; i < entries.size(); i++){
             for(int j = i + 1; j < entries.size(); j++){
                 String fingerPrint1 = entries.get(i).getValue();
                 String fingerPrint2 = entries.get(j).getValue();
 
-                if (fingerPrint1.equals(fingerPrint2)){
-                    System.out.println(entries.get(i).getKey().getName() + " vs " + entries.get(j).getKey().getName() + ": MATCHES");
-                } else {
-                    System.out.println(entries.get(i).getKey().getName() + " vs " + entries.get(j).getKey().getName() + ": no match");
+                int differences = 0;
+                // LOOPS THROUGH THE CHAR IN FINGERPRINT
+                for(int k = 0; k < fingerPrint1.length(); k++ ){
+                    if( fingerPrint1.charAt(k) != fingerPrint2.charAt(k) ){
+                        differences++;
+                    }
                 }
+                if (differences == 0){
+                    System.out.println(entries.get(i).getKey().getName() + " == " + entries.get(j).getKey().getName());
+                }
+
+//                System.out.println(entries.get(i).getKey().getName() + " vs " + entries.get(j).getKey().getName() + " = "+ differences );
+
 
             }
 
